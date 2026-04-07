@@ -4,3 +4,4 @@ calculator.c using C
 - Prints undefined if the denominator is 0
 calculator1
 -user can use bigger expression,(as many variables and operations as they want)
+-prints result by calculating from left to right (doesn't follow the bdmas rules)
