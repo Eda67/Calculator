@@ -1,15 +1,14 @@
 #include <stdio.h>
 int main(){
     //variables
-    double num1;
-    double num2;
+    double num1, num2, result;
     char operator;
-    double result;
+    
     
 
     //user input
     printf("Enter the expresion here: \n");
-    scanf("%lf%c%lf",&num1,&operator,&num2);
+    scanf("%lf %c %lf",&num1,&operator,&num2);
 
     //calculations
     if(operator=='+'){
