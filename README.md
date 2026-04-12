@@ -5,3 +5,6 @@ calculator.c using C
 calculator1
 -user can use bigger expression,(as many variables and operations as they want)
 -prints result by calculating from left to right (doesn't follow the bdmas rules)
+calculator2
+-user inputs an expresion with multiple numbers and operations and barakets
+-output is a result that followed the bdmas rule
