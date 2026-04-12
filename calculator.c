@@ -1,5 +1,6 @@
 #include <stdio.h>
-int main(){
+int main()
+{
     //variables
     double num1, num2, result;
     char operator;
