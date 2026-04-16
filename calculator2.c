@@ -32,12 +32,12 @@ double read_parts();
 double mul_div_calculations();
 double add_sub_calculations();
 double full_calculations();
-char exp[100];
+char expr[200];
 int i=0;
 
 void skip_space()
 {
-    while (isspace(exp[i]))
+    while (isspace(expr[i]))
     {
         i++;
     }
@@ -47,12 +47,12 @@ double read_parts() // this will only return current_num, only involves calculat
 {
     double current_num=0;
     skip_space();
-    if (exp[i]=='(')
+    if (expr[i]=='(')
     {
         i++;
         skip_space();
         current_num=full_calculations();
-        if (exp[i]==')')
+        if (expr[i]==')')
         {
             i++;
         }
@@ -62,9 +62,9 @@ double read_parts() // this will only return current_num, only involves calculat
         }
         return current_num;
     }
-    while (isdigit(exp[i]))
+    while (isdigit(expr[i]))
     {
-        current_num=current_num*10+(exp[i]-'0');
+        current_num=current_num*10+(expr[i]-'0');
         i++;
     }
     return current_num;
@@ -76,14 +76,14 @@ double mul_div_calculations()
     double left = read_parts();
     double right;
     skip_space();
-    if (exp[i]=='/')
+    if (expr[i]=='/')
     {
         i++;
         skip_space();
         right=read_parts();
         result=left/right;
     }
-    else if (exp[i]=='*')
+    else if (expr[i]=='*')
     {
         i++;
         skip_space();
@@ -102,14 +102,14 @@ double add_sub_calculations()
     double left=mul_div_calculations();
     double right;
     skip_space();
-    if (exp[i]=='+')
+    if (expr[i]=='+')
     {
         i++;
         skip_space();
         right=read_parts();
         result=left+right;
     }
-    else if (exp[i]=="-")
+    else if (expr[i]=='-')
     {
         i++;
         skip_space();
@@ -121,17 +121,14 @@ double add_sub_calculations()
 double full_calculations() // combining callculations ??
 {
     double result;
-    while (ischar(exp[i]) && exp[i]!='(' && exp[i]!=')')
-    {
-        return add_sub_calculations();
-    }
+    return add_sub_calculations();
 }
 int main()
 {
     double result;
     //user input
     printf("Enter your expression here: \n");
-    fgets(exp,200,stdin);
+    fgets(expr,200,stdin);
     i=0;
     result=full_calculations();
     printf("Answer:%.2f\n",result);
