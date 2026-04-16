@@ -11,7 +11,7 @@ Function 2:doubl read_parts()=skip space()
                         else print Missing brakets
                         return temp result;
 Function 3: double mul_div_calculation()= 
-Function 4: double add_sub_calulation()=
+Function 4: double add_sub_calulation()= it shoudl first call the mul_div_calculation(), so that this function forst parse before the +/- operation
 Function 4: double calculation()=mul_div_calculation()
                             add_sub_calculation()
 int main()=
@@ -46,6 +46,7 @@ void skip_space()
 double read_parts() // this will only return current_num, only involves calculations inside the brakets
 {
     double current_num=0;
+    skip_space();
     if (exp[i]=='(')
     {
         i++;
@@ -56,8 +57,10 @@ double read_parts() // this will only return current_num, only involves calculat
             i++;
         }
         else 
+        {
             printf("Error,there is a bracket missing.");
-            return current_num;
+        }
+        return current_num;
     }
     while (isdigit(exp[i]))
     {
@@ -70,26 +73,48 @@ double read_parts() // this will only return current_num, only involves calculat
 double mul_div_calculations()
 {
     double result;
+    double left = read_parts();
+    double right;
+    skip_space();
     if (exp[i]=='/')
     {
-       result=read_parts(exp[i])/read_parts(exp[i+1]); 
+        i++;
+        skip_space();
+        right=read_parts();
+        result=left/right;
     }
-    else if (exp[i]=="*")
+    else if (exp[i]=='*')
     {
-        result=read_parts(exp[i])*read_parts(exp[i+1]);
+        i++;
+        skip_space();
+        right=read_parts();
+        result=left*right;
+    }
+    else
+    {
+        result=left;
     }
     return result;
 }
 double add_sub_calculations()
 {
     double result;
+    double left=mul_div_calculations();
+    double right;
+    skip_space();
     if (exp[i]=='+')
     {
-        result=read_parts(exp[i])+read_parts(exp[i+1]);
+        i++;
+        skip_space();
+        right=read_parts();
+        result=left+right;
     }
     else if (exp[i]=="-")
     {
-        result=read_parts(exp[i])-read_parts(exp[i+1]);
+        i++;
+        skip_space();
+        right=read_parts();
+        result=left-right;
     }
     return result;
 }
@@ -98,15 +123,7 @@ double full_calculations() // combining callculations ??
     double result;
     while (ischar(exp[i]) && exp[i]!='(' && exp[i]!=')')
     {
-        if (mul_div_calculations())
-        {
-            result=mul_div_calculations();
-        }
-        else if(add_sub_calculations())
-        {
-            result=add_sub_calculations();
-        }
-        return result;
+        return add_sub_calculations();
     }
 }
 int main()
@@ -115,14 +132,8 @@ int main()
     //user input
     printf("Enter your expression here: \n");
     fgets(exp,200,stdin);
-    while (exp[i]!='\0')
-    {
-        read_parts();
-        full_calculations();
-        mul_div_calculations();
-        add_sub_calculations();
-        result=full_calculations();
-    }
+    i=0;
+    result=full_calculations();
     printf("Answer:%.2f\n",result);
     return 0;
 }
