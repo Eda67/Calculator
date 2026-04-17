@@ -45,6 +45,7 @@ void skip_space()
 
 double read_parts() // this will only return current_num, only involves calculations inside the brakets
 {
+    printf("Debug, i=%d,expr[i]=%c\n",i,expr);  //debugging remove later
     double current_num=0;
     skip_space();
     if (expr[i]=='(')
@@ -67,11 +68,13 @@ double read_parts() // this will only return current_num, only involves calculat
         current_num=current_num*10+(expr[i]-'0');
         i++;
     }
-    return current_num;
+    printf("Debug, i=%d,expr[i]=%c,current num=%f\n",i,expr);    //debugging remove later
+    return current_num;  
 }
 
 double mul_div_calculations()
 {
+    printf("Debug, i=%d,expr[i]=%c\n",i,expr);      //debugging remove later
     double result;
     double left = read_parts();
     double right;
@@ -95,9 +98,11 @@ double mul_div_calculations()
         result=left;
     }
     return result;
+    printf("Debug, i=%d,expr[i]=%c,result=%f\n",i,expr,result);     //debugging remove later
 }
 double add_sub_calculations()
-{
+{   
+    printf("Debug, i=%d,expr[i]=%c\n",i,expr);       //debugging remove later
     double result;
     double left=mul_div_calculations();
     double right;
@@ -106,25 +111,33 @@ double add_sub_calculations()
     {
         i++;
         skip_space();
-        right=read_parts();
+        right=mul_div_calculations();
         result=left+right;
     }
     else if (expr[i]=='-')
     {
         i++;
         skip_space();
-        right=read_parts();
+        right=mul_div_calculations();
         result=left-right;
     }
+    else
+    {
+        result=left;
+    }
     return result;
+    printf("Debug, i=%d,expr[i]=%c,result=%f\n",i,expr,result);      //debugging remove later
 }
 double full_calculations() // combining callculations ??
 {
+    printf("Debug, i=%d,expr[i]=%c\n",i,expr);       //debugging remove later
     double result;
     return add_sub_calculations();
+    printf("Debug, i=%d,expr[i]=%c,result=%f\n",i,expr,result);      //debugging remove later
 }
 int main()
 {
+    printf("Debug, i=%d,expr[i]=%c\n",i,expr);       //debugging remove later
     double result;
     //user input
     printf("Enter your expression here: \n");
@@ -132,5 +145,6 @@ int main()
     i=0;
     result=full_calculations();
     printf("Answer:%.2f\n",result);
+    printf("Debug, i=%d,expr[i]=%c,result=%f\n",i,expr,result);       //debugging remove later
     return 0;
 }
